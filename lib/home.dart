@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController searchController = new TextEditingController();
+  List<String> newsItem = ["Top News", "India", "World", "Finance", "Health"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +62,37 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
+            ),
+            Container(
+              height: 50,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: newsItem.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        print(newsItem[index]);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.blueAccent,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Center(
+                          child: Text(
+                            newsItem[index],
+                            style: TextStyle(
+                                fontSize: 19,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
             )
           ],
         ),
