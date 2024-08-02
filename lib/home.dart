@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:news_app/model.dart';
+import "package:http/http.dart";
+import 'package:news_app/model.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,8 +15,45 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController searchController = new TextEditingController();
+  List<NewsQueryModel> newsModelList = <NewsQueryModel>[];
   List<String> newsItem = ["Top News", "India", "World", "Finance", "Health"];
+  bool isLoading = true;
+
   @override
+  getNewsByQuery(String query) async {
+    String url =
+        "https://newsapi.org/v2/everything?q=$query&from=2024-07-02&sortBy=publishedAt&apiKey=1fd412b016964f0c9dcac7117ef7ac3b";
+    Response response = await get(Uri.parse(url));
+    Map data = jsonDecode(response.body);
+
+    if (data["status"] == "ok") {
+      List articles = data["articles"];
+      List<NewsQueryModel> tempList = [];
+
+      for (var element in articles) {
+        NewsQueryModel newsQueryModel = NewsQueryModel.fromMap(element);
+        tempList.add(newsQueryModel);
+      }
+
+      setState(() {
+        newsModelList = tempList;
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // Handle error here (e.g., show a message to the user)
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNewsByQuery("Top News");
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
