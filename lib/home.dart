@@ -113,7 +113,11 @@ class _HomeState extends State<Home> {
                                 "") {
                               print("Blank search");
                             } else {
-                              // Navigator.push(context, MaterialPageRoute(builder: (context) => Search(searchController.text)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Category(
+                                          query: searchController.text)));
                             }
                           },
                           child: Container(
@@ -129,7 +133,11 @@ class _HomeState extends State<Home> {
                             controller: searchController,
                             textInputAction: TextInputAction.search,
                             onSubmitted: (value) {
-                              print(value);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Category(query: value)));
                             },
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -324,7 +332,14 @@ class _HomeState extends State<Home> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ElevatedButton(
-                                  onPressed: () {}, child: Text("SHOW MORE")),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Category(query: "technology")));
+                                  },
+                                  child: Text("SHOW MORE")),
                             ],
                           ),
                         )
