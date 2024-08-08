@@ -1,22 +1,22 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class NewsQueryModel {
   late String newsHead;
   late String newsDes;
   late String newsImg;
   late String newsUrl;
+
   NewsQueryModel({
-    this.newsHead = "NEWS HEADLINES",
+    this.newsHead = "NEWS HEADLINE",
     this.newsDes = "SOME NEWS",
-    this.newsImg = "NEWS IMAGE",
-    this.newsUrl = "NEWS URL",
+    this.newsImg = "SOME URL",
+    this.newsUrl = "SOME URL",
   });
 
-  factory NewsQueryModel.fromMap(Map news) {
+  factory NewsQueryModel.fromMap(Map<String, dynamic> news) {
     return NewsQueryModel(
-      newsHead: news['title'],
-      newsDes: news['Description'],
-      newsImg: news['UrlToImage'],
-      newsUrl: news['Url'],
+      newsHead: news["title"] ?? "NEWS HEADLINE",
+      newsDes: news["description"] ?? "SOME NEWS",
+      newsImg: news["urlToImage"] ?? "SOME URL",
+      newsUrl: news["url"] ?? "SOME URL",
     );
   }
 }
