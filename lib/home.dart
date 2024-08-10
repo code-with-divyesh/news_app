@@ -161,11 +161,15 @@ class _HomeState extends State<Home> {
                             controller: searchController,
                             textInputAction: TextInputAction.search,
                             onSubmitted: (value) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Category(query: value)));
+                              if (value == "") {
+                                print("blank search");
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Category(query: value)));
+                              }
                             },
                             decoration: InputDecoration(
                                 border: InputBorder.none,
